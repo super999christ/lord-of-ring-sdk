@@ -14,7 +14,7 @@ class Movie extends base_1.default {
     getAll() {
         return super._getAll();
     }
-    async getQuote(id) {
+    async getQuotes(id) {
         const url = `${this.baseUrl}/${id}/quote`;
         try {
             const responseData = await super._getResponse(url);
