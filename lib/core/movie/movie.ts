@@ -15,7 +15,7 @@ class Movie extends Base {
     return super._getAll<IMovie>();
   }
 
-  async getQuote(id: string): Promise<IListResponse<IMovieQuote>> {
+  async getQuotes(id: string): Promise<IListResponse<IMovieQuote>> {
     const url = `${this.baseUrl}/${id}/quote`;
     try {
       const responseData = await super._getResponse<IMovieQuote>(url);
