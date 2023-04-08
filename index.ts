@@ -1,1 +1,2 @@
-export { default } from './lib/sdk';
+import LordSDK from './lib/sdk';
+export default LordSDK;
