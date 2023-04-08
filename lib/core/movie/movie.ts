@@ -1,15 +1,28 @@
-import { NetworkHelper } from "../../helpers";
 import Base from "../base";
-import { IMovieProps } from "./movie.type";
+import { IListResponse } from "../base/base.type";
+import { IMovie, IMovieProps, IMovieQuote } from "./movie.type";
 
 class Movie extends Base {
   constructor(options: IMovieProps) {
     super(options);
   }
 
-  getQuote(id: string) {
+  getOne(id: string): Promise<IMovie> {
+    return super._getOne<IMovie>(id);
+  }
+
+  getAll(): Promise<IListResponse<IMovie>> {
+    return super._getAll<IMovie>();
+  }
+
+  async getQuote(id: string): Promise<IListResponse<IMovieQuote>> {
     const url = `${this.baseUrl}/${id}/quote`;
-    return NetworkHelper.fetchData(url, this.headers);
+    try {
+      const responseData = await super._getResponse<IMovieQuote>(url);
+      return responseData;
+    } catch(error) {
+      throw error;
+    }
   }
 };
 

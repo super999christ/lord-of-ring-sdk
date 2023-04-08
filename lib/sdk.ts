@@ -12,7 +12,7 @@ class LordSDK {
     this.movie = new Movie({ path: '/movie', accessToken });
   }
 
-  getMovie() {
+  getMovieInstance() {
     return this.movie;
   }
 };

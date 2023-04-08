@@ -1,7 +1,6 @@
 {
   "name": "randall_christ-sdk",
   "version": "1.0.0",
-  "type": "module",
   "description": "Movie SDK for The Lord of the Rings",
   "main": "dist/index.js",
   "scripts": {

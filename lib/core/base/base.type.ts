@@ -1,6 +1,7 @@
-import { IMovieProps } from "../movie/movie.type";
-
-type IBaseProps = IMovieProps;
+interface IBaseProps {
+  path: string;
+  accessToken: string;
+};
 
 interface IAuthHeader {
   headers: {
@@ -8,7 +9,17 @@ interface IAuthHeader {
   }
 };
 
+interface IListResponse<T> {
+  docs: T[];
+  limit: number;
+  offset: number;
+  page: number;
+  pages: number;
+  total: number;
+};
+
 export {
   IBaseProps,
-  IAuthHeader
+  IAuthHeader,
+  IListResponse
 };

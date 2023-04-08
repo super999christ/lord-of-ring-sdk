@@ -1,6 +1,6 @@
 import { BASE_URL, VERSION } from "../../env/data";
 import { NetworkHelper } from "../../helpers";
-import { IAuthHeader, IBaseProps } from "./base.type";
+import { IAuthHeader, IBaseProps, IListResponse } from "./base.type";
 
 class Base {
   protected baseUrl: string;        // API's base url (e.g. https://the-one-api.dev/v2/movie)
@@ -13,19 +13,34 @@ class Base {
     this.accessToken = accessToken;
     this.headers = {
       headers: {
-        Authorization: accessToken
+        Authorization: `Bearer ${accessToken}`
       }
     };
   }
 
-  getOne(id: string) {
+  protected async _getResponse<T>(url: string): Promise<IListResponse<T>> {
+    try {
+      const response = await NetworkHelper.fetchData(url, this.headers);
+      const responseData = response.data as IListResponse<T>;
+      return responseData;
+    } catch(error) {
+      throw error;
+    }
+  };
+
+  protected async _getOne<T>(id: string): Promise<T> {
     const url = `${this.baseUrl}/${id}`;
-    return NetworkHelper.fetchData(url, this.headers);
+    try {
+      const responseData = await this._getResponse<T>(url);
+      return responseData.docs[0];
+    } catch(error) {
+      throw error;
+    }
   }
 
-  getAll() {
+  protected async _getAll<T>(): Promise<IListResponse<T>> {
     const url = this.baseUrl;
-    return NetworkHelper.fetchData(url, this.headers);
+    return this._getResponse<T>(url);
   }
 };
 
